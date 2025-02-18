@@ -42,7 +42,7 @@ class CustomDrawer extends StatelessWidget {
                     ),
                   ),
                   TextButton(
-                    onPressed: () {},
+                    onPressed: () => Navigator.pushNamed(context, 'characters'),
                     child: Text(
                       'Characters List',
                       style: GoogleFonts.robotoSlab(
