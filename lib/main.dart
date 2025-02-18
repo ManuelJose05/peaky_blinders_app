@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:peaky_blinders_app/presentation/screens/home_screen.dart';
 import 'package:peaky_blinders_app/presentation/screens/splash_screen.dart';
+import 'package:peaky_blinders_app/provider/character_provider.dart';
 import 'package:peaky_blinders_app/providers/characters_provider.dart';
 import 'package:provider/provider.dart';
 
@@ -14,7 +15,7 @@ class AppState extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (_) => CharactersProvider(),lazy: false)
+        ChangeNotifierProvider(create: (_) => CharacterProvider(),lazy: false)
       ],
       child: MyApp(),
     );

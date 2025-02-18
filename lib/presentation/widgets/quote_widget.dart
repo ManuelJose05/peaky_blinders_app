@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:peaky_blinders_app/data/quotes.dart';
+import 'package:peaky_blinders_app/provider/character_provider.dart';
+import 'package:provider/provider.dart';
 
 class QuoteWidget extends StatelessWidget {
   const QuoteWidget({
     super.key,
-    required this.index,
   });
-
-  final int index;
 
   @override
   Widget build(BuildContext context) {
+    final provider = Provider.of<CharacterProvider>(context);
     return Container(
+      width: MediaQuery.of(context).size.width * 0.8,
       decoration: BoxDecoration(
         color: Colors.black12,
         borderRadius: BorderRadius.circular(20),
@@ -24,7 +24,7 @@ class QuoteWidget extends StatelessWidget {
         ],
       ),
       child: Text(
-        quotes[index],
+        provider.getCurrentQuote(),
         style: TextStyle(
           color: Colors.white,
           fontSize: 22,

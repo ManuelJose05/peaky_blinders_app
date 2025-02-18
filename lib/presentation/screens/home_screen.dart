@@ -3,8 +3,8 @@ import 'dart:math';
 import 'package:card_swiper/card_swiper.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:peaky_blinders_app/data/quotes.dart';
 import 'package:peaky_blinders_app/presentation/widgets/card_swiper_widget.dart';
+import 'package:peaky_blinders_app/presentation/widgets/custom_widget.dart';
 import 'package:peaky_blinders_app/presentation/widgets/quote_widget.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -12,33 +12,37 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      drawer: Drawer(),
-      appBar: AppBar(
-        title: Text(
-          'Peaky Blinders App',
-          style: GoogleFonts.playfairDisplay(
-            textStyle: TextStyle(
-              fontSize: 24,
-              fontWeight: FontWeight.bold,
-              letterSpacing: 1.5,
-              color: Colors.white,
-              shadows: [
-                Shadow(
-                  offset: Offset(1.5, 1.5),
-                  blurRadius: 3,
-                  color: Colors.black,
-                ),
-              ],
+    return SafeArea(
+      child: Scaffold(
+        drawer: CustomDrawer(),
+        appBar: AppBar(
+          title: Text(
+            'Peaky Blinders App',
+            style: GoogleFonts.playfairDisplay(
+              textStyle: TextStyle(
+                fontSize: 24,
+                fontWeight: FontWeight.bold,
+                letterSpacing: 1.5,
+                color: Colors.white,
+                shadows: [
+                  Shadow(
+                    offset: Offset(1.5, 1.5),
+                    blurRadius: 3,
+                    color: Colors.black,
+                  ),
+                ],
+              ),
             ),
           ),
+          centerTitle: true,
         ),
-        centerTitle: true,
+        body: _HomeView(),
       ),
-      body: _HomeView(),
     );
   }
 }
+
+
 
 class _HomeView extends StatelessWidget {
   @override
