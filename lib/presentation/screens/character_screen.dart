@@ -9,7 +9,11 @@ class CharacterScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Character List'), centerTitle: true),
+      appBar: AppBar(
+        title: Text('Character List'), 
+        centerTitle: true,
+        leading: IconButton(onPressed: () => Navigator.pushNamed(context,'home'), icon: Icon(Icons.arrow_back)),
+        ),
       body: _CharacterView(),
     );
   }

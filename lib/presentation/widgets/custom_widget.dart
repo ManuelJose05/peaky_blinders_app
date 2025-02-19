@@ -42,7 +42,7 @@ class CustomDrawer extends StatelessWidget {
                     ),
                   ),
                   TextButton(
-                    onPressed: () => Navigator.pushNamed(context, 'characters'),
+                    onPressed: () => Navigator.pushReplacementNamed(context, 'characters'),
                     child: Text(
                       'Characters List',
                       style: GoogleFonts.robotoSlab(
@@ -62,16 +62,16 @@ class CustomDrawer extends StatelessWidget {
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  _buildSeasonButton(context, 'Season 1'),
-                  _buildSeasonButton(context, 'Season 2'),
-                  _buildSeasonButton(context, 'Season 3'),
-                  _buildSeasonButton(context, 'Season 4'),
-                  _buildSeasonButton(context, 'Season 5'),
-                  _buildSeasonButton(context, 'Season 6'),
+                  _buildSeasonButton(context, 'Season 1', 1),
+                  _buildSeasonButton(context, 'Season 2',2),
+                  _buildSeasonButton(context, 'Season 3',3),
+                  _buildSeasonButton(context, 'Season 4',4),
+                  _buildSeasonButton(context, 'Season 5',5),
+                  _buildSeasonButton(context, 'Season 6',6),
 
                   Divider(height: 2,color: Colors.grey,),
                   SizedBox(height: 25,),
-                  Text('App diseñada por Manuel José Liébana 2ºDAM',
+                  Text('App diseñada por Manuel José Liébana',
                   style: TextStyle(color: Colors.white,fontSize: 17),
                   textAlign: TextAlign.center,
                   )
@@ -85,11 +85,11 @@ class CustomDrawer extends StatelessWidget {
   }
 }
 
-Widget _buildSeasonButton(BuildContext context, String season) {
+Widget _buildSeasonButton(BuildContext context, String season, int id) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 5.0),
       child: TextButton(
-        onPressed: () {},
+        onPressed: () => Navigator.pushReplacementNamed(context, 'episodesList',arguments: id),
         child: Text(
           season,
           style: GoogleFonts.robotoSlab(

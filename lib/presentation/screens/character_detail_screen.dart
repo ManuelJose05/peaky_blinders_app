@@ -10,7 +10,9 @@ class CharacterDetailScreens extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Character Info'), centerTitle: true),
+      appBar: AppBar(title: Text('Character Info'), centerTitle: true,
+      leading: IconButton(onPressed: () => Navigator.pushNamed(context,'characters'), icon: Icon(Icons.arrow_back)),
+      ),
       body: _CharacterInfoView(),
     );
   }
@@ -71,6 +73,11 @@ class _CharacterInfoView extends StatelessWidget {
               color: Colors.black87,
               fontWeight: FontWeight.w500,
             ),
+          ),
+          SizedBox(height: 15,),
+          SizedBox(width: MediaQuery.of(context).size.width * 0.8,child: Divider()),
+          Text('Others Characters',
+          style: TextStyle(fontSize: 19,fontWeight: FontWeight.bold),
           ),
           SizedBox(height: 15,),
           HorizontalCharactersCard(provider: provider, id: character.id)

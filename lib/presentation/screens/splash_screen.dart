@@ -1,15 +1,15 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:animate_do/animate_do.dart';
+import 'package:peaky_blinders_app/presentation/screens/home_screen.dart';
 
 class SplashScreen extends StatelessWidget {
   const SplashScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.black,
-      body: _SplashView(),
-    );
+    return Scaffold(backgroundColor: Colors.black, body: _SplashView());
   }
 }
 
@@ -17,6 +17,23 @@ class _SplashView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
+    Timer(Duration(seconds: 5), () {
+      Navigator.push(
+        context,
+        PageRouteBuilder(
+          pageBuilder: (contexto, animacion, a) => HomeScreen(),
+          transitionsBuilder: (context, animation, secondary, child) {
+            return SlideTransition(
+              position: Tween<Offset>(
+                begin: Offset(1.0, 0.0), 
+                end: Offset.zero, 
+              ).animate(animation),
+              child: child,
+            );
+          },
+        ),
+      );
+    });
     return SafeArea(
       child: Center(
         child: Column(
@@ -43,16 +60,14 @@ class _SplashView extends StatelessWidget {
                 ),
               ),
             ),
-            SizedBox(height: 20,),
+            SizedBox(height: 20),
             FadeIn(
               duration: Duration(seconds: 3),
               child: SizedBox(
                 width: size.width * 0.5,
-                child: LinearProgressIndicator(
-                  color: Colors.grey[900],
-                ),
+                child: LinearProgressIndicator(color: Colors.grey[900]),
               ),
-            )
+            ),
           ],
         ),
       ),

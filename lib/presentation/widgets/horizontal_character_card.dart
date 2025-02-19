@@ -14,7 +14,7 @@ class HorizontalCharactersCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    List<Character> characters = provider.getRestCharacters(id);
+    List<Character> characters = provider.characters;
     return SizedBox(
       height: 200,
       width: double.infinity,
@@ -22,16 +22,33 @@ class HorizontalCharactersCard extends StatelessWidget {
         scrollDirection: Axis.horizontal,
         itemCount: characters.length,
         itemBuilder: (context, index) {
+          if (characters[index].id == index) index++;
           return GestureDetector(
-            onTap: () => Navigator.pushNamed(context, 'characterDetail',arguments: characters[index]),
+            onTap:
+                () => Navigator.pushNamed(
+                  context,
+                  'characterDetail',
+                  arguments: characters[index],
+                ),
             child: SizedBox(
               width: 150,
+              height: 250,
               child: Column(
                 children: [
-                  Hero(
-                    tag: characters[index].heroId!,
-                    child: Image(image: NetworkImage(characters[index].imageUrl!),width: 100,height: 100,fit: BoxFit.cover,)),
-                  Text(characters[index].name, maxLines: 1,overflow: TextOverflow.ellipsis,)
+                  ClipRRect(
+                    borderRadius: BorderRadius.all(Radius.circular(20)),
+                    child: Image(
+                      image: NetworkImage(characters[index].imageUrl!),
+                      width: 120,
+                      height: 150,
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                  Text(
+                    characters[index].name,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                  ),
                 ],
               ),
             ),

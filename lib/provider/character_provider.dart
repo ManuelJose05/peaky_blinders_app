@@ -7,6 +7,7 @@ import 'package:peaky_blinders_app/services/character_service.dart';
 class CharacterProvider with ChangeNotifier {
   final CharacterService characterService = CharacterService();
   int indexQuotes = 0;
+  
   final List<String> quotes = [
     "By order of the Peaky Blinders",
     "I'm not a man of many words, but I am a man of action.",
@@ -31,18 +32,11 @@ class CharacterProvider with ChangeNotifier {
 
   Future getCharacters() async {
     final String _url = 'http://10.0.2.2:8080';
-    final String token =
-        'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJwZWRyb0BnbWFpbC5jb20iLCJpYXQiOjE3Mzc3Mzc2NjB9.sttmGsu4qsaPWnTPBRH2zx1IwZJV6PyvdAWW5w8UwG0';
+    final String token = 'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJwZWRyb0BnbWFpbC5jb20iLCJpYXQiOjE3Mzc3Mzc2NjB9.sttmGsu4qsaPWnTPBRH2zx1IwZJV6PyvdAWW5w8UwG0';
     Uri uri = Uri.parse('$_url/api/characters?token=$token');
     Response response = await get(uri);
     final data = charactersResponseFromJson(response.body);
     characters = data.characters;
     notifyListeners();
-  }
-
-  List<Character> getRestCharacters(int id) {
-    List<Character> aux = characters;
-    aux.removeWhere((x) => x.id == id);
-    return aux;
   }
 }
