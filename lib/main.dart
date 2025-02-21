@@ -5,9 +5,11 @@ import 'package:peaky_blinders_app/presentation/screens/character_screen.dart';
 import 'package:peaky_blinders_app/presentation/screens/episodes_list_screen.dart';
 import 'package:peaky_blinders_app/presentation/screens/home_screen.dart';
 import 'package:peaky_blinders_app/presentation/screens/login_screen.dart';
+import 'package:peaky_blinders_app/presentation/screens/register_screen.dart';
 import 'package:peaky_blinders_app/presentation/screens/splash_screen.dart';
 import 'package:peaky_blinders_app/provider/character_provider.dart';
 import 'package:peaky_blinders_app/provider/episodes_provider.dart';
+import 'package:peaky_blinders_app/provider/user_provider.dart';
 import 'package:provider/provider.dart';
 
 void main() => runApp(AppState());
@@ -22,6 +24,7 @@ class AppState extends StatelessWidget {
       providers: [
         ChangeNotifierProvider(create: (_) => CharacterProvider(),lazy: false),
         ChangeNotifierProvider(create: (_) => EpisodesProvider(),lazy: false),
+        ChangeNotifierProvider(create: (_) => UserProvider(),lazy: false),
       ],
       child: MyApp(),
     );
@@ -47,6 +50,7 @@ class MyApp extends StatelessWidget {
       title: 'Peaky Blinders App',
       initialRoute: 'login',
       routes: {
+        'register': (_) => RegisterScreen(),
         'login': (_) => LoginScreen(),
         'splash': (_) => SplashScreen(),
         'home':(_) => HomeScreen(),

@@ -1,39 +1,35 @@
 import 'package:flutter/material.dart';
 
-class LoginScreen extends StatelessWidget {
-  const LoginScreen({super.key});
+class RegisterScreen extends StatelessWidget {
+  const RegisterScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: _LoginView(),
+      body: _RegisterView(),
     );
   }
 }
 
-class _LoginView extends StatefulWidget {
+class _RegisterView extends StatefulWidget {
   @override
-  State<_LoginView> createState() => _LoginViewState();
+  State<_RegisterView> createState() => _RegisterViewState();
 }
 
-class _LoginViewState extends State<_LoginView> {
+class _RegisterViewState extends State<_RegisterView> {
   bool showPassword = true;
-  String errorText = '';
-  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.black87, 
       body: Center(
         child: Form(
-          key: _formKey,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Container(
                 width: MediaQuery.of(context).size.width * 0.7,
-                height: MediaQuery.of(context).size.height * 0.52,
+                height: MediaQuery.of(context).size.height * 0.55,
                 decoration: BoxDecoration(
                   color: Colors.black54,
                   borderRadius: BorderRadius.circular(15),
@@ -59,14 +55,52 @@ class _LoginViewState extends State<_LoginView> {
                     ),
                     SizedBox(height: 20),
                     Text(
-                      'Email:',
+                      'Username:',
                       style: TextStyle(
                         fontSize: 18,
-                        fontFamily: 'Roboto',
+                        fontFamily: 'Roboto', 
                         color: Colors.white,
                       ),
                     ),
-                    CustomTextField(hintText: 'email@example.com',),
+                    TextFormField(
+                      style: TextStyle(color: Colors.white),
+                      decoration: InputDecoration(
+                        hintText: 'tommy05',
+                        hintStyle: TextStyle(color: Colors.grey[400]),
+                        labelStyle: TextStyle(color: Colors.white),
+                        filled: true,
+                        fillColor: Colors.black,
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(20),
+                          gapPadding: 4,
+                          borderSide: BorderSide.none,
+                        ),
+                      ),
+                    ),
+                    SizedBox(height: 10,),
+                    Text(
+                      'Email:',
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontFamily: 'Roboto', // Fuente tipo serif para un look clásico
+                        color: Colors.white,
+                      ),
+                    ),
+                    TextFormField(
+                      style: TextStyle(color: Colors.white),
+                      decoration: InputDecoration(
+                        hintText: 'example@gmail.com',
+                        hintStyle: TextStyle(color: Colors.grey[400]),
+                        labelStyle: TextStyle(color: Colors.white),
+                        filled: true,
+                        fillColor: Colors.black,
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(20),
+                          gapPadding: 4,
+                          borderSide: BorderSide.none,
+                        ),
+                      ),
+                    ),
                     SizedBox(height: 10,),
                     Text(
                       'Password:',
@@ -76,17 +110,42 @@ class _LoginViewState extends State<_LoginView> {
                         color: Colors.white,
                       ),
                     ),
-                    CustomPasswordField(showPassword: showPassword),
+                    TextFormField(
+                      obscureText: showPassword,
+                      style: TextStyle(color: Colors.white),
+                      decoration: InputDecoration(
+                        suffixIconColor: Colors.white,
+                        suffixIcon: IconButton(
+                          onPressed: () {
+                            showPassword = !showPassword;
+                            setState(() {
+                              
+                            });
+                          },
+                          icon: Icon(Icons.remove_red_eye_outlined),
+                          ),
+                        hintText: 'ssdsdf12',
+                        hintStyle: TextStyle(color: Colors.grey[400]),
+                        labelStyle: TextStyle(color: Colors.white),
+                        filled: true,
+                        fillColor: Colors.black,
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(20),
+                          gapPadding: 4,
+                          borderSide: BorderSide.none,
+                        ),
+                      ),
+                    ),
                     SizedBox(height: 20),
                     Align(
                       alignment: Alignment.center,
                       child: FilledButton.icon(
                         onPressed: () {},
                         label: Text(
-                          'Log In',
+                          'Create account',
                           style: TextStyle(fontSize: 18),
                         ),
-                        icon: Icon(Icons.login_outlined),
+                        icon: Icon(Icons.account_box_outlined),
                         style: ButtonStyle(
                           backgroundColor: WidgetStateProperty.all<Color>(Colors.grey[800]!),
                           foregroundColor: WidgetStateProperty.all<Color>(Colors.white),
@@ -106,7 +165,7 @@ class _LoginViewState extends State<_LoginView> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      "Don't have an account?",
+                      "Already register?",
                       style: TextStyle(
                         color: Colors.white, 
                         fontSize: 16,
@@ -114,9 +173,9 @@ class _LoginViewState extends State<_LoginView> {
                       ),
                     ),
                     TextButton(
-                      onPressed: () => Navigator.pushReplacementNamed(context, 'register'),
+                      onPressed: () => Navigator.pushReplacementNamed(context, 'login'),
                       child: Text(
-                        'Create an account',
+                        'Log In',
                         style: TextStyle(
                           color: Colors.orangeAccent, // Color que resalta
                           fontSize: 16,
@@ -131,86 +190,5 @@ class _LoginViewState extends State<_LoginView> {
           ),
         ),
       );
-  }
-}
-
-class CustomPasswordField extends StatefulWidget {
-   CustomPasswordField({
-    super.key,
-    required this.showPassword,
-  });
-
-  bool showPassword;
-
-  @override
-  State<CustomPasswordField> createState() => _CustomPasswordFieldState();
-}
-
-class _CustomPasswordFieldState extends State<CustomPasswordField> {
-  @override
-  Widget build(BuildContext context) {
-    return TextFormField(
-      obscureText: widget.showPassword,
-      style: TextStyle(color: Colors.white),
-      decoration: InputDecoration(
-        suffixIconColor: Colors.white,
-        suffixIcon: IconButton(
-          onPressed: () {
-            widget.showPassword = !widget.showPassword;
-            setState(() {
-              
-            });
-          },
-          icon: Icon(Icons.remove_red_eye_outlined),
-          ),
-        hintText: 'ssdsdf12',
-        hintStyle: TextStyle(color: Colors.grey[400]),
-        labelStyle: TextStyle(color: Colors.white),
-        filled: true,
-        fillColor: Colors.black,
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(20),
-          gapPadding: 4,
-          borderSide: BorderSide.none,
-        ),
-      ),
-    );
-  }
-}
-
-class CustomTextField extends StatefulWidget {
-  final String hintText;
-   CustomTextField({
-    super.key, required this.hintText
-  });
-
-  @override
-  State<CustomTextField> createState() => _CustomTextFieldState();
-}
-
-class _CustomTextFieldState extends State<CustomTextField> {
-  @override
-  Widget build(BuildContext context) {
-    return TextFormField(
-      validator: (value) {
-        if (value == null) return 'Campo Obligatorio';
-        if (value.trim().isEmpty) return 'Campo Obligatorio';
-        return null;
-      },
-      style: TextStyle(color: Colors.white),
-      decoration: InputDecoration(
-        errorBorder: OutlineInputBorder().copyWith(borderSide: BorderSide(color: Colors.red),borderRadius: BorderRadius.circular(20)),
-        hintText: widget.hintText,
-        hintStyle: TextStyle(color: Colors.grey[400]),
-        labelStyle: TextStyle(color: Colors.white),
-        filled: true,
-        fillColor: Colors.black,
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(20),
-          gapPadding: 4,
-          borderSide: BorderSide.none,
-        ),
-      ),
-    );
   }
 }
