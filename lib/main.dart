@@ -4,6 +4,7 @@ import 'package:peaky_blinders_app/presentation/screens/character_detail_screen.
 import 'package:peaky_blinders_app/presentation/screens/character_screen.dart';
 import 'package:peaky_blinders_app/presentation/screens/episodes_list_screen.dart';
 import 'package:peaky_blinders_app/presentation/screens/home_screen.dart';
+import 'package:peaky_blinders_app/presentation/screens/login_screen.dart';
 import 'package:peaky_blinders_app/presentation/screens/splash_screen.dart';
 import 'package:peaky_blinders_app/provider/character_provider.dart';
 import 'package:peaky_blinders_app/provider/episodes_provider.dart';
@@ -44,8 +45,9 @@ class MyApp extends StatelessWidget {
       ],
       debugShowCheckedModeBanner: false,
       title: 'Peaky Blinders App',
-      initialRoute: 'splash',
+      initialRoute: 'login',
       routes: {
+        'login': (_) => LoginScreen(),
         'splash': (_) => SplashScreen(),
         'home':(_) => HomeScreen(),
         'characters': (_) => CharacterScreen(),
