@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:peaky_blinders_app/provider/episodes_provider.dart';
+import 'package:provider/provider.dart';
 
 class CustomDrawer extends StatelessWidget {
   const CustomDrawer({
@@ -86,10 +88,14 @@ class CustomDrawer extends StatelessWidget {
 }
 
 Widget _buildSeasonButton(BuildContext context, String season, int id) {
+  final provider = Provider.of<EpisodesProvider>(context);
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 5.0),
       child: TextButton(
-        onPressed: () => Navigator.pushReplacementNamed(context, 'episodesList',arguments: id),
+        onPressed: () {
+          provider.changeSeason(id);
+          Navigator.pushReplacementNamed(context, 'episodesList',arguments: id);
+        },
         child: Text(
           season,
           style: GoogleFonts.robotoSlab(

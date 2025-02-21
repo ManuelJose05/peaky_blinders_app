@@ -7,16 +7,38 @@ class EpisodesProvider with ChangeNotifier{
   final String _url = 'http://10.0.2.2:8080';
   final String token = 'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJwZWRyb0BnbWFpbC5jb20iLCJpYXQiOjE3Mzc3Mzc2NjB9.sttmGsu4qsaPWnTPBRH2zx1IwZJV6PyvdAWW5w8UwG0';
   bool expansionChange = false;
+  List<Episode> episodes = [];
+  List<Episode> aux = [];
+  int season = 1;
 
-  Future<List<Episode>> getEpisodeBySeason(int season) async {
-    Uri uri = Uri.parse('$_url/api/episodes/listPagination?token=$token&page=${season - 1}');
+  EpisodesProvider() {
+    getEpisodes();
+  }
+
+  Future getEpisodes() async {
+    Uri uri = Uri.parse('$_url/api/episodes/listPagination?token=$token&size=36');
     Response response = await get(uri);
     final data = episodesResponseFromJson(response.body);
-    return data.episodes;
+    episodes = data.episodes;
+    notifyListeners();
+  }
+
+  void getEpisodesBySeason(int idSeason) {
+    print(idSeason);
+    aux = [];
+    episodes.forEach((x) {
+      if (x.seasonNumber == idSeason) aux.add(x);
+    });
+    notifyListeners();
   }
 
   void changeExpansion(bool value) {
     expansionChange = value;
+    notifyListeners();
+  }
+
+  void changeSeason(int id) {
+    season = id;
     notifyListeners();
   }
 }
