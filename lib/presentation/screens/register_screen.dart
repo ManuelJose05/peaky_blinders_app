@@ -29,7 +29,7 @@ class _RegisterViewState extends State<_RegisterView> {
             children: [
               Container(
                 width: MediaQuery.of(context).size.width * 0.7,
-                height: MediaQuery.of(context).size.height * 0.55,
+                height: MediaQuery.of(context).size.height * 0.65,
                 decoration: BoxDecoration(
                   color: Colors.black54,
                   borderRadius: BorderRadius.circular(15),
