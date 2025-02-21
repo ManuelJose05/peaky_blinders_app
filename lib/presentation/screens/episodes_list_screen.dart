@@ -28,6 +28,7 @@ class EpisodesListScreen extends StatelessWidget {
         foregroundColor: Colors.white,
       ),
       body: PageView.builder(
+        physics: ScrollPhysics(),
         scrollDirection: Axis.horizontal,
         onPageChanged: (value) {
           if (provider.season == 6) provider.changeSeason(1);
