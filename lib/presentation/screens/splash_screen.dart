@@ -2,7 +2,9 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:animate_do/animate_do.dart';
+import 'package:peaky_blinders_app/preferences/user_preferences.dart';
 import 'package:peaky_blinders_app/presentation/screens/home_screen.dart';
+import 'package:peaky_blinders_app/presentation/screens/login_screen.dart';
 
 class SplashScreen extends StatelessWidget {
   const SplashScreen({super.key});
@@ -16,12 +18,13 @@ class SplashScreen extends StatelessWidget {
 class _SplashView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final prefs = PreferenciasUsuario();
     final size = MediaQuery.of(context).size;
     Timer(Duration(seconds: 5), () {
       Navigator.push(
         context,
         PageRouteBuilder(
-          pageBuilder: (contexto, animacion, a) => HomeScreen(),
+          pageBuilder: (contexto, animacion, a) => prefs.ultimaRuta == 'home' ? HomeScreen() : LoginScreen(),
           transitionsBuilder: (context, animation, secondary, child) {
             return SlideTransition(
               position: Tween<Offset>(

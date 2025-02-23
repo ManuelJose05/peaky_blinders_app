@@ -55,7 +55,7 @@ class MyApp extends StatelessWidget {
       ],
       debugShowCheckedModeBanner: false,
       title: 'Peaky Blinders App',
-      initialRoute: prefs.ultimaRuta,
+      initialRoute: 'splash',
       routes: {
         'register': (_) => RegisterScreen(),
         'login': (_) => LoginScreen(),
