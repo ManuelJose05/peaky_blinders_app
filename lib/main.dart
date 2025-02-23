@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:peaky_blinders_app/preferences/user_preferences.dart';
 import 'package:peaky_blinders_app/presentation/screens/character_detail_screen.dart';
 import 'package:peaky_blinders_app/presentation/screens/character_screen.dart';
 import 'package:peaky_blinders_app/presentation/screens/episodes_list_screen.dart';
@@ -12,7 +13,12 @@ import 'package:peaky_blinders_app/provider/episodes_provider.dart';
 import 'package:peaky_blinders_app/provider/user_provider.dart';
 import 'package:provider/provider.dart';
 
-void main() => runApp(AppState());
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  final prefs = PreferenciasUsuario();
+  await prefs.iniPrefs();
+  runApp(AppState());
+}
 
 
 class AppState extends StatelessWidget {
@@ -37,6 +43,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final prefs = PreferenciasUsuario();
     return MaterialApp(
       supportedLocales: [
         Locale('es', 'ES'),
@@ -48,7 +55,7 @@ class MyApp extends StatelessWidget {
       ],
       debugShowCheckedModeBanner: false,
       title: 'Peaky Blinders App',
-      initialRoute: 'login',
+      initialRoute: prefs.ultimaRuta,
       routes: {
         'register': (_) => RegisterScreen(),
         'login': (_) => LoginScreen(),

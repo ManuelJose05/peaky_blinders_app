@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:card_swiper/card_swiper.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:peaky_blinders_app/preferences/user_preferences.dart';
 import 'package:peaky_blinders_app/presentation/widgets/card_swiper_widget.dart';
 import 'package:peaky_blinders_app/presentation/widgets/custom_widget.dart';
 import 'package:peaky_blinders_app/presentation/widgets/quote_widget.dart';
@@ -12,6 +13,8 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final prefs = PreferenciasUsuario();
+    prefs.setUltimaRuta('home');
     return SafeArea(
       child: Scaffold(
         drawer: CustomDrawer(),

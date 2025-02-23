@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 import 'package:peaky_blinders_app/models/character_response_model.dart';
 import 'package:peaky_blinders_app/models/charactere_model.dart';
-import 'package:peaky_blinders_app/services/character_service.dart';
+import 'package:peaky_blinders_app/preferences/user_preferences.dart';
 
-class CharacterProvider with ChangeNotifier {
-  final CharacterService characterService = CharacterService();
+class CharacterProvider with ChangeNotifier {  
+  final prefs = PreferenciasUsuario();
   int indexQuotes = 0;
   
   final List<String> quotes = [
@@ -32,8 +32,8 @@ class CharacterProvider with ChangeNotifier {
 
   Future getCharacters() async {
     final String _url = 'http://10.0.2.2:8080';
-    final String token = 'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJwZWRyb0BnbWFpbC5jb20iLCJpYXQiOjE3Mzc3Mzc2NjB9.sttmGsu4qsaPWnTPBRH2zx1IwZJV6PyvdAWW5w8UwG0';
-    Uri uri = Uri.parse('$_url/api/characters?token=$token');
+    String _token = prefs.userToken;
+    Uri uri = Uri.parse('$_url/api/characters?token=$_token');
     Response response = await get(uri);
     final data = charactersResponseFromJson(response.body);
     characters = data.characters;

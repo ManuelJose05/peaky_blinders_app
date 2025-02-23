@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:peaky_blinders_app/models/user_model.dart';
+import 'package:peaky_blinders_app/preferences/user_preferences.dart';
+import 'package:peaky_blinders_app/provider/user_provider.dart';
+import 'package:provider/provider.dart';
 
 class RegisterScreen extends StatelessWidget {
   const RegisterScreen({super.key});
@@ -18,8 +22,11 @@ class _RegisterView extends StatefulWidget {
 
 class _RegisterViewState extends State<_RegisterView> {
   bool showPassword = true;
+  String email = '';
+  String pasword = '';
   @override
   Widget build(BuildContext context) {
+    final provider = Provider.of<UserProvider>(context);
     return Scaffold(
       backgroundColor: Colors.black87, 
       body: Center(
@@ -82,11 +89,12 @@ class _RegisterViewState extends State<_RegisterView> {
                       'Email:',
                       style: TextStyle(
                         fontSize: 18,
-                        fontFamily: 'Roboto', // Fuente tipo serif para un look clásico
+                        fontFamily: 'Roboto', 
                         color: Colors.white,
                       ),
                     ),
                     TextFormField(
+                      onChanged: (value) => email = value,
                       style: TextStyle(color: Colors.white),
                       decoration: InputDecoration(
                         hintText: 'example@gmail.com',
@@ -111,6 +119,7 @@ class _RegisterViewState extends State<_RegisterView> {
                       ),
                     ),
                     TextFormField(
+                      onChanged: (value) => pasword = value,
                       obscureText: showPassword,
                       style: TextStyle(color: Colors.white),
                       decoration: InputDecoration(
@@ -140,7 +149,16 @@ class _RegisterViewState extends State<_RegisterView> {
                     Align(
                       alignment: Alignment.center,
                       child: FilledButton.icon(
-                        onPressed: () {},
+                        onPressed: () async {
+                          // ignore: use_build_context_synchronously
+                          final prefs = PreferenciasUsuario();
+                          User temp = await provider.register(email, pasword);
+                          if (temp.email.isNotEmpty) {
+                            prefs.setUserEmail(temp.email);
+                            prefs.setUserToken(temp.token);
+                            Navigator.pushReplacementNamed(context, 'home');
+                          }
+                        },
                         label: Text(
                           'Create account',
                           style: TextStyle(fontSize: 18),

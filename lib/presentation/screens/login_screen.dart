@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:peaky_blinders_app/models/user_model.dart';
+import 'package:peaky_blinders_app/preferences/user_preferences.dart';
+import 'package:peaky_blinders_app/provider/user_provider.dart';
+import 'package:provider/provider.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});
@@ -19,10 +23,13 @@ class _LoginView extends StatefulWidget {
 class _LoginViewState extends State<_LoginView> {
   bool showPassword = true;
   String errorText = '';
+  String email = '';
+  String pass = '';
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
+    final provider = Provider.of<UserProvider>(context);
     return Scaffold(
       backgroundColor: Colors.black87, 
       body: Center(
@@ -66,7 +73,10 @@ class _LoginViewState extends State<_LoginView> {
                         color: Colors.white,
                       ),
                     ),
-                    CustomTextField(hintText: 'email@example.com',),
+                    CustomTextField(hintText: 'email@example.com',onChangeValue: (value) => {
+                      email = value,
+                      print(email)
+                    },),
                     SizedBox(height: 10,),
                     Text(
                       'Password:',
@@ -76,12 +86,22 @@ class _LoginViewState extends State<_LoginView> {
                         color: Colors.white,
                       ),
                     ),
-                    CustomPasswordField(showPassword: showPassword),
+                    CustomPasswordField(showPassword: showPassword, onChangeValue: (value) => {
+                      pass = value
+                    },),
                     SizedBox(height: 20),
                     Align(
                       alignment: Alignment.center,
                       child: FilledButton.icon(
-                        onPressed: () {},
+                        onPressed: () async {
+                          final prefs = PreferenciasUsuario();
+                          User temp = await provider.login(email, pass);
+                          if (temp.email.isNotEmpty) {
+                            prefs.setUserEmail(temp.email);
+                            prefs.setUserToken(temp.token);
+                             Navigator.pushReplacementNamed(context, 'home');
+                          }
+                        },
                         label: Text(
                           'Log In',
                           style: TextStyle(fontSize: 18),
@@ -118,9 +138,9 @@ class _LoginViewState extends State<_LoginView> {
                       child: Text(
                         'Create an account',
                         style: TextStyle(
-                          color: Colors.orangeAccent, // Color que resalta
+                          color: Colors.orangeAccent, 
                           fontSize: 16,
-                          fontWeight: FontWeight.bold, // Peso en negrita para destacar
+                          fontWeight: FontWeight.bold,
                         ),
                       ),
                     ),
@@ -138,8 +158,9 @@ class CustomPasswordField extends StatefulWidget {
    CustomPasswordField({
     super.key,
     required this.showPassword,
+    required this.onChangeValue
   });
-
+  final Function onChangeValue;
   bool showPassword;
 
   @override
@@ -150,6 +171,7 @@ class _CustomPasswordFieldState extends State<CustomPasswordField> {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      onChanged: (value) => widget.onChangeValue(value),
       obscureText: widget.showPassword,
       style: TextStyle(color: Colors.white),
       decoration: InputDecoration(
@@ -181,8 +203,9 @@ class _CustomPasswordFieldState extends State<CustomPasswordField> {
 class CustomTextField extends StatefulWidget {
   final String hintText;
    CustomTextField({
-    super.key, required this.hintText
+    super.key, required this.hintText, required this.onChangeValue
   });
+  final Function onChangeValue;
 
   @override
   State<CustomTextField> createState() => _CustomTextFieldState();
@@ -192,6 +215,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      onChanged: (value) => widget.onChangeValue(value),
       validator: (value) {
         if (value == null) return 'Campo Obligatorio';
         if (value.trim().isEmpty) return 'Campo Obligatorio';

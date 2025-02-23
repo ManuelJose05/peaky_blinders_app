@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:peaky_blinders_app/preferences/user_preferences.dart';
 import 'package:peaky_blinders_app/provider/episodes_provider.dart';
 import 'package:provider/provider.dart';
 
@@ -70,6 +71,32 @@ class CustomDrawer extends StatelessWidget {
                   _buildSeasonButton(context, 'Season 4',4),
                   _buildSeasonButton(context, 'Season 5',5),
                   _buildSeasonButton(context, 'Season 6',6),
+
+                  Divider(height: 2,color: Colors.grey,),
+                  SizedBox(height: 25,),
+
+                  Text(
+                    'USER',
+                    style: GoogleFonts.robotoSlab(
+                      fontSize: 18,
+                      color: Colors.white70,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  TextButton(
+                    onPressed: () {
+                      final prefs = PreferenciasUsuario();
+                      prefs.clearUserPreferences();
+                      Navigator.pushReplacementNamed(context, 'login');
+                    },
+                    child: Text(
+                      'Log Out',
+                      style: GoogleFonts.robotoSlab(
+                        fontSize: 16,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ),
 
                   Divider(height: 2,color: Colors.grey,),
                   SizedBox(height: 25,),
