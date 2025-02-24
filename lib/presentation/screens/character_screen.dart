@@ -10,6 +10,7 @@ class CharacterScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
         title: Text('Character List'), 
         centerTitle: true,
@@ -26,7 +27,13 @@ class _CharacterView extends StatelessWidget {
     final provider = Provider.of<CharacterProvider>(context);
     return provider.characters.isEmpty ?
     Center(
-      child: CircularProgressIndicator(),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Image.asset('assets/images/coin.gif'),
+          Text('Loading...')
+        ],
+      ),
     )
     :
     ZoomIn(

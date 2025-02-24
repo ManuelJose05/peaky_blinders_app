@@ -32,124 +32,120 @@ class _LoginViewState extends State<_LoginView> {
     final provider = Provider.of<UserProvider>(context);
     return Scaffold(
       backgroundColor: Colors.black87, 
-      body: Center(
-        child: Form(
-          key: _formKey,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Container(
-                width: MediaQuery.of(context).size.width * 0.7,
-                height: MediaQuery.of(context).size.height * 0.52,
-                decoration: BoxDecoration(
-                  color: Colors.black54,
-                  borderRadius: BorderRadius.circular(15),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.grey[700]!,
-                      blurRadius: 8,
-                      offset: Offset(0, 4), 
-                    ),
-                  ],
-                ),
-                padding: EdgeInsets.all(20),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Center(
-                      child: Image.network(
-                        'https://d2bzx2vuetkzse.cloudfront.net/unshoppable_producs/cfbae664-4cde-457b-8c26-c2ec1764f24d.png',
-                        height: 100,
-                        width: double.infinity,
+      body: Stack(
+        children: [
+          Positioned.fill(child: Image.asset('assets/images/login.webp',fit: BoxFit.cover,)),
+          Center(
+          child: Form(
+            key: _formKey,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Container(
+                  width: MediaQuery.of(context).size.width * 0.7,
+                  height: MediaQuery.of(context).size.height * 0.35,
+                  decoration: BoxDecoration(
+                    color: Colors.black54,
+                    borderRadius: BorderRadius.circular(15),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.grey[700]!,
+                        blurRadius: 8,
+                        offset: Offset(0, 4), 
                       ),
-                    ),
-                    SizedBox(height: 20),
-                    Text(
-                      'Email:',
-                      style: TextStyle(
-                        fontSize: 18,
-                        fontFamily: 'Roboto',
-                        color: Colors.white,
-                      ),
-                    ),
-                    CustomTextField(hintText: 'email@example.com',onChangeValue: (value) => {
-                      email = value,
-                      print(email)
-                    },),
-                    SizedBox(height: 10,),
-                    Text(
-                      'Password:',
-                      style: TextStyle(
-                        fontSize: 18,
-                        fontFamily: 'Roboto',
-                        color: Colors.white,
-                      ),
-                    ),
-                    CustomPasswordField(showPassword: showPassword, onChangeValue: (value) => {
-                      pass = value
-                    },),
-                    SizedBox(height: 20),
-                    Align(
-                      alignment: Alignment.center,
-                      child: FilledButton.icon(
-                        onPressed: () async {
-                          final prefs = PreferenciasUsuario();
-                          User temp = await provider.login(email, pass);
-                          if (temp.email.isNotEmpty) {
-                            prefs.setUserEmail(temp.email);
-                            prefs.setUserToken(temp.token);
-                             Navigator.pushReplacementNamed(context, 'home');
-                          }
-                        },
-                        label: Text(
-                          'Log In',
-                          style: TextStyle(fontSize: 18),
+                    ],
+                  ),
+                  padding: EdgeInsets.all(20),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Email:',
+                        style: TextStyle(
+                          fontSize: 18,
+                          fontFamily: 'Roboto',
+                          color: Colors.white,
                         ),
-                        icon: Icon(Icons.login_outlined),
-                        style: ButtonStyle(
-                          backgroundColor: WidgetStateProperty.all<Color>(Colors.grey[800]!),
-                          foregroundColor: WidgetStateProperty.all<Color>(Colors.white),
-                          padding: WidgetStateProperty.all<EdgeInsets>(EdgeInsets.symmetric(vertical: 15, horizontal: 30)),
-                          shape: WidgetStateProperty.all<RoundedRectangleBorder>(
-                            RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(30),
+                      ),
+                      CustomTextField(hintText: 'email@example.com',onChangeValue: (value) => {
+                        email = value,
+                        print(email)
+                      },),
+                      SizedBox(height: 10,),
+                      Text(
+                        'Password:',
+                        style: TextStyle(
+                          fontSize: 18,
+                          fontFamily: 'Roboto',
+                          color: Colors.white,
+                        ),
+                      ),
+                      CustomPasswordField(showPassword: showPassword, onChangeValue: (value) => {
+                        pass = value
+                      },),
+                      SizedBox(height: 20),
+                      Align(
+                        alignment: Alignment.center,
+                        child: FilledButton.icon(
+                          onPressed: () async {
+                            final prefs = PreferenciasUsuario();
+                            User temp = await provider.login(email, pass);
+                            if (temp.email.isNotEmpty) {
+                              prefs.setUserEmail(temp.email);
+                              prefs.setUserToken(temp.token);
+                               Navigator.pushReplacementNamed(context, 'home');
+                            }
+                          },
+                          label: Text(
+                            'Log In',
+                            style: TextStyle(fontSize: 18),
+                          ),
+                          icon: Icon(Icons.login_outlined),
+                          style: ButtonStyle(
+                            backgroundColor: WidgetStateProperty.all<Color>(Colors.grey[800]!),
+                            foregroundColor: WidgetStateProperty.all<Color>(Colors.white),
+                            padding: WidgetStateProperty.all<EdgeInsets>(EdgeInsets.symmetric(vertical: 15, horizontal: 30)),
+                            shape: WidgetStateProperty.all<RoundedRectangleBorder>(
+                              RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(30),
+                              ),
                             ),
                           ),
                         ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
-              ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      "Don't have an account?",
-                      style: TextStyle(
-                        color: Colors.white, 
-                        fontSize: 16,
-                        fontFamily: 'Roboto', // Fuente serif
-                      ),
-                    ),
-                    TextButton(
-                      onPressed: () => Navigator.pushReplacementNamed(context, 'register'),
-                      child: Text(
-                        'Create an account',
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        "Don't have an account?",
                         style: TextStyle(
-                          color: Colors.orangeAccent, 
+                          color: Colors.white, 
                           fontSize: 16,
-                          fontWeight: FontWeight.bold,
+                          fontFamily: 'Roboto', // Fuente serif
                         ),
                       ),
-                    ),
-                  ],
-                ),
-              ],
+                      TextButton(
+                        onPressed: () => Navigator.pushReplacementNamed(context, 'register'),
+                        child: Text(
+                          'Create an account',
+                          style: TextStyle(
+                            color: Colors.orangeAccent, 
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
             ),
           ),
-        ),
+  ]),
       );
   }
 }

@@ -53,7 +53,18 @@ class _EpisodeListView extends StatelessWidget {
   Widget build(BuildContext context) {
     final provider = Provider.of<EpisodesProvider>(context);
     provider.getEpisodesBySeason(season);
-    return ListView.builder(
+    return provider.episodes.isEmpty ?
+    Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Image.asset('assets/images/coin.gif'),
+          Text('Loading...')
+        ],
+      ),
+    )
+    :
+    ListView.builder(
       itemCount: provider.aux.length,
       itemBuilder: (context, index) {
         return Container(
