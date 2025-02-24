@@ -43,7 +43,6 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final prefs = PreferenciasUsuario();
     return MaterialApp(
       supportedLocales: [
         Locale('es', 'ES'),

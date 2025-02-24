@@ -1,12 +1,10 @@
-import 'dart:math';
 
-import 'package:card_swiper/card_swiper.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:peaky_blinders_app/preferences/user_preferences.dart';
 import 'package:peaky_blinders_app/presentation/widgets/card_swiper_widget.dart';
 import 'package:peaky_blinders_app/presentation/widgets/custom_widget.dart';
-import 'package:peaky_blinders_app/presentation/widgets/quote_widget.dart';
+import 'package:peaky_blinders_app/search/info_search.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -19,6 +17,12 @@ class HomeScreen extends StatelessWidget {
       child: Scaffold(
         drawer: CustomDrawer(),
         appBar: AppBar(
+          actions: [
+          IconButton(onPressed: () => showSearch(
+            context: context, 
+            delegate: MovieSearchDelegate()
+            ), icon: Icon(Icons.search_outlined))
+        ],
           title: Text(
             'Peaky Blinders App',
             style: GoogleFonts.playfairDisplay(

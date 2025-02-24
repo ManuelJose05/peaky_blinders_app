@@ -7,6 +7,7 @@ import 'package:peaky_blinders_app/preferences/user_preferences.dart';
 class CharacterProvider with ChangeNotifier {  
   final prefs = PreferenciasUsuario();
   int indexQuotes = 0;
+  final String _url = 'http://10.0.2.2:8080';
   
   final List<String> quotes = [
     "By order of the Peaky Blinders",
@@ -31,12 +32,19 @@ class CharacterProvider with ChangeNotifier {
   }
 
   Future getCharacters() async {
-    final String _url = 'http://10.0.2.2:8080';
-    String _token = prefs.userToken;
-    Uri uri = Uri.parse('$_url/api/characters?token=$_token');
+    String token = prefs.userToken;
+    Uri uri = Uri.parse('$_url/api/characters?token=$token');
     Response response = await get(uri);
     final data = charactersResponseFromJson(response.body);
     characters = data.characters;
     notifyListeners();
+  }
+
+  Future<List<Character>> findCharacter(String query) async{
+    String token = prefs.userToken;
+    Uri uri = Uri.parse('$_url/api/characters/find?token=$token&query=$query');
+    Response response = await get(uri);
+    final data = charactersResponseFromJson(response.body);
+    return data.characters;
   }
 }

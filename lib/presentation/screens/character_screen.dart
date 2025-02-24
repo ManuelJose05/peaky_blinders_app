@@ -65,6 +65,10 @@ class _CharacterView extends StatelessWidget {
                         height: 180,
                         width: double.infinity,
                         fit: BoxFit.cover,
+                        loadingBuilder: (context, child, loadingProgress) {
+                          if (loadingProgress == null) return child;
+                          return Image.asset('assets/images/loading.gif'); 
+                        },
                         errorBuilder: (context, error, stackTrace) {
                           return Image.asset('assets/images/loading.gif');
                         },
