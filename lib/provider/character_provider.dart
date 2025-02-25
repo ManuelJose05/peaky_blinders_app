@@ -27,8 +27,8 @@ class CharacterProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  String getCurrentQuote() {
-    return quotes[indexQuotes];
+  String getCurrentQuote(int index) {
+    return quotes[index];
   }
 
   Future getCharacters() async {

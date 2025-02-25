@@ -1,6 +1,4 @@
 
-import 'dart:math';
-
 import 'package:card_swiper/card_swiper.dart';
 import 'package:flutter/material.dart';
 import 'package:peaky_blinders_app/presentation/widgets/quote_widget.dart';
@@ -13,28 +11,50 @@ class SwiperWidget extends StatelessWidget {
   });
 
   @override
-  Widget build(BuildContext context) {
-    final provider = Provider.of<CharacterProvider>(context);
-    return Column(
-      children: [
-        Swiper(
-          onIndexChanged: (value) => provider.saveIndexQuotes(value),
-          viewportFraction: 0.8,
-          itemWidth: MediaQuery.of(context).size.width * 0.8,
-          itemHeight: MediaQuery.of(context).size.width * 0.8,
-          layout: SwiperLayout.STACK,
-          itemCount: provider.quotes.length,
-          itemBuilder: (context, index) {
-            return ClipRRect(
-              borderRadius: BorderRadius.all(Radius.circular(30)),
-              child: Image(
-                image: AssetImage('assets/images/arthur.png')
+Widget build(BuildContext context) {
+  final provider = Provider.of<CharacterProvider>(context);
+  List<String> images = [
+    'arthur.png',
+    'swipper1.png',
+    'swipper2.png',
+    'swipper3.png',
+    'tommySinFondo.png'
+  ];
+  
+  return SizedBox(
+    height: 500, 
+    width: double.infinity,
+    child: Swiper(
+      itemCount: images.length,
+      autoplay: true,
+      autoplayDisableOnInteraction: true,
+      autoplayDelay: 10000,
+      duration: 1000,
+      loop: true,
+      onIndexChanged: (value) => provider.saveIndexQuotes(value),
+      viewportFraction: 0.9,
+      scale: 0.9, 
+      fade: 0.5, 
+      itemWidth: double.infinity,
+      itemHeight: 500,
+      layout: SwiperLayout.DEFAULT,
+      itemBuilder: (context, index) {
+        return Column(
+          children: [
+            ClipRRect(
+              borderRadius: BorderRadius.circular(30),
+              child: Image.asset(
+                'assets/images/${images[index]}',
+                width: double.infinity,
+                height: 400,
+                fit: BoxFit.fill, 
               ),
-            );
-          },
-        ),
-        QuoteWidget(),
-      ],
-    );
-  }
+            ),
+            QuoteWidget(index: index,),
+          ],
+        );
+      },
+    ),
+  );
+}
 }

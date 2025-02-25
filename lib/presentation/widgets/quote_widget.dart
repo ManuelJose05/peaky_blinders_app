@@ -3,8 +3,9 @@ import 'package:peaky_blinders_app/provider/character_provider.dart';
 import 'package:provider/provider.dart';
 
 class QuoteWidget extends StatelessWidget {
+  final int index;
   const QuoteWidget({
-    super.key,
+    super.key, required this.index
   });
 
   @override
@@ -24,10 +25,11 @@ class QuoteWidget extends StatelessWidget {
         ],
       ),
       child: Text(
-        provider.getCurrentQuote(),
+        overflow: TextOverflow.clip,
+        provider.getCurrentQuote(index),
         style: TextStyle(
           color: Colors.white,
-          fontSize: 22,
+          fontSize: 20,
           fontWeight: FontWeight.bold,
           fontStyle: FontStyle.italic,
         ),

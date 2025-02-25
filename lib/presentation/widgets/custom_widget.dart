@@ -73,7 +73,7 @@ class CustomDrawer extends StatelessWidget {
                   _buildSeasonButton(context, 'Season 6',6),
 
                   Divider(height: 2,color: Colors.grey,),
-                  SizedBox(height: 25,),
+                  SizedBox(height: 5,),
 
                   Text(
                     'USER',
