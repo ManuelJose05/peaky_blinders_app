@@ -5,7 +5,7 @@ import 'package:provider/provider.dart';
 
 class MovieSearchDelegate extends SearchDelegate {
   @override
-  String? get searchFieldLabel => 'Buscar un personjae';
+  String? get searchFieldLabel => 'Buscar un personaje';
 
   @override
   List<Widget>? buildActions(BuildContext context) {
@@ -21,13 +21,17 @@ class MovieSearchDelegate extends SearchDelegate {
   Widget? buildLeading(BuildContext context) {
     return IconButton(
       onPressed: () => close(context, null), 
-      icon: Icon(Icons.arrow_back)
+      icon: Icon(Icons.arrow_back,)
       );
   }
 
   @override
   Widget buildResults(BuildContext context) {
-    return Container();
+    return Container(
+      decoration: BoxDecoration(
+        color: Colors.black54
+      ),
+    );
   }
 
   @override
@@ -36,7 +40,7 @@ class MovieSearchDelegate extends SearchDelegate {
     if (query.isEmpty) {
       return Container(
         child: Center(
-          child: Icon(Icons.movie_creation_outlined,color: Colors.black38,size: 150,),
+          child: Icon(Icons.local_activity_rounded,color: Colors.black,size: 150,),
         ),
       );
     }
@@ -65,16 +69,21 @@ class _SuggestionItem extends StatelessWidget {
   const _SuggestionItem({ required this.character});
   @override
   Widget build(BuildContext context) {
+    character.heroId = 'hero-${character.id}';
     return ListTile(
-      leading: FadeInImage(
-        placeholder: AssetImage('assets/images/no-image.jpg'), 
-        image: character.imageUrl == null ? AssetImage('assets/images/loading.gif') : NetworkImage(character.imageUrl!),
-        width: 50,
-        fit: BoxFit.contain,
-        ),
+      leading: Hero(
+        transitionOnUserGestures: true,
+        tag: character.heroId!,
+        child: FadeInImage(
+          placeholder: AssetImage('assets/images/loading.gif'), 
+          image: character.imageUrl == null ? AssetImage('assets/images/no-image.jpg') : NetworkImage(character.imageUrl!),
+          width: 50,
+          fit: BoxFit.contain,
+          ),
+      ),
       title: Text(character.name),
       subtitle: Text(character.actor),
-      onTap: () => Navigator.pushNamed(context, 'characterDetail',arguments: character),  
+      onTap: () => Navigator.pushReplacementNamed(context, 'characterDetail',arguments: character)
     );
   }
 }

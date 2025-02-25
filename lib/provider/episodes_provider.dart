@@ -3,8 +3,9 @@ import 'package:http/http.dart';
 import 'package:peaky_blinders_app/models/episode_model.dart';
 import 'package:peaky_blinders_app/models/episodes_response_model.dart';
 import 'package:peaky_blinders_app/preferences/user_preferences.dart';
+import 'package:url_launcher/url_launcher.dart';
 
-class EpisodesProvider with ChangeNotifier{
+class EpisodesProvider with ChangeNotifier {
   final prefs = PreferenciasUsuario();
   final String _url = 'http://10.0.2.2:8080';
   bool expansionChange = false;
@@ -12,13 +13,33 @@ class EpisodesProvider with ChangeNotifier{
   List<Episode> aux = [];
   int season = 1;
 
+  Map<int, String> peakyBlindersTrailers = {
+    1: "https://www.youtube.com/watch?v=oVzVdvGIC7U",
+    2: "https://www.youtube.com/watch?v=EMfOiyFVXKs",
+    3: "https://www.youtube.com/watch?v=cck2gX6SKaQ",
+    4: "https://www.youtube.com/watch?v=9iI1b3RZLxQ",
+    5: "https://www.youtube.com/watch?v=oVzVdvGIC7U",
+    6: "https://www.youtube.com/watch?v=2nsT9uQPIrk",
+  };
+
   EpisodesProvider() {
     getEpisodes();
   }
 
+  void sendTrailer(int idSeason) async {
+    Uri uri = Uri.parse(peakyBlindersTrailers[idSeason]!);
+    if (await canLaunchUrl(uri)) {
+      await launchUrl(uri, mode: LaunchMode.externalApplication);
+    } else {
+      print("No se pudo abrir el enlace");
+    }
+  }
+
   Future getEpisodes() async {
     final String token = prefs.userToken;
-    Uri uri = Uri.parse('$_url/api/episodes/listPagination?token=$token&size=36');
+    Uri uri = Uri.parse(
+      '$_url/api/episodes/listPagination?token=$token&size=36',
+    );
     Response response = await get(uri);
     final data = episodesResponseFromJson(response.body);
     episodes = data.episodes;

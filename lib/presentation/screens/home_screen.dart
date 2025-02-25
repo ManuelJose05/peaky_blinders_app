@@ -55,20 +55,23 @@ class _HomeView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     
-    return Container(
-      width: double.infinity,
-      height: MediaQuery.of(context).size.height,
-      decoration: BoxDecoration(
-        image: DecorationImage(
-          fit: BoxFit.cover,
-          image: AssetImage('assets/images/darkStreet.webp'),
+    return SingleChildScrollView(
+      child: Container(
+        width: double.infinity,
+        height: MediaQuery.of(context).size.height,
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            fit: BoxFit.cover,
+            image: AssetImage('assets/images/darkStreet.webp'),
+          ),
         ),
-      ),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          SwiperWidget(),
-        ],
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            SwiperWidget(),
+            SizedBox(height: 20,),
+          ],
+        ),
       ),
     );
   }

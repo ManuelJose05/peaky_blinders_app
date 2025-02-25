@@ -15,8 +15,7 @@ import 'package:provider/provider.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  final prefs = PreferenciasUsuario();
-  await prefs.iniPrefs();
+  await PreferenciasUsuario().iniPrefs();
   runApp(AppState());
 }
 
