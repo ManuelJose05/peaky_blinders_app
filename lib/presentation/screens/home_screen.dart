@@ -69,7 +69,6 @@ class _HomeView extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             SwiperWidget(),
-            SizedBox(height: 20,),
           ],
         ),
       ),
