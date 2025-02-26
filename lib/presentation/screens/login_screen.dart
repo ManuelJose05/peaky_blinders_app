@@ -221,6 +221,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
       decoration: InputDecoration(
         errorBorder: OutlineInputBorder().copyWith(borderSide: BorderSide(color: Colors.red),borderRadius: BorderRadius.circular(20)),
         hintText: widget.hintText,
+        errorText: '',
         hintStyle: TextStyle(color: Colors.grey[400]),
         labelStyle: TextStyle(color: Colors.white),
         filled: true,
