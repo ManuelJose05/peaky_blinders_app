@@ -3,6 +3,7 @@ import 'package:http/http.dart';
 import 'package:peaky_blinders_app/models/character_response_model.dart';
 import 'package:peaky_blinders_app/models/charactere_model.dart';
 import 'package:peaky_blinders_app/preferences/user_preferences.dart';
+import 'package:share_plus/share_plus.dart';
 
 class CharacterProvider with ChangeNotifier {  
   final prefs = PreferenciasUsuario();

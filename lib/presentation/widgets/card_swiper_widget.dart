@@ -57,41 +57,10 @@ class SwiperWidget extends StatelessWidget {
               ),
               QuoteWidget(index: index),
               SizedBox(height: 10),
-              FilledButton.icon(
-                onPressed: () async {
-                  await shareImage();
-                },
-                label: Text(
-                  'Compartir en WhatsApp',
-                  style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white,
-                  ),
-                ),
-                icon: Icon(
-                  Icons.mobile_screen_share_outlined,
-                  color: Colors.white,
-                  size: 24,
-                ),
-                style: ButtonStyle(
-                  backgroundColor: WidgetStateProperty.all(
-                    Color(0xFF25D366),
-                  ), // Color verde de WhatsApp
-                  padding: WidgetStateProperty.all(
-                    EdgeInsets.symmetric(horizontal: 20, vertical: 12),
-                  ),
-                  elevation: WidgetStateProperty.all(4), // Sombra para destacar
-                ),
-              ),
             ],
           );
         },
       ),
     );
   }
-}
-
-Future shareImage() async {
-  await Share.share('hola');
 }

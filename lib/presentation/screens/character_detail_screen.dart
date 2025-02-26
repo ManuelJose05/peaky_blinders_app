@@ -3,15 +3,23 @@ import 'package:peaky_blinders_app/models/charactere_model.dart';
 import 'package:peaky_blinders_app/presentation/widgets/horizontal_character_card.dart';
 import 'package:peaky_blinders_app/provider/character_provider.dart';
 import 'package:provider/provider.dart';
+import 'package:share_plus/share_plus.dart';
 
 class CharacterDetailScreens extends StatelessWidget {
   const CharacterDetailScreens({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final Character character =
+        ModalRoute.of(context)!.settings.arguments as Character;
     return Scaffold(
       appBar: AppBar(title: Text('Character Info'), centerTitle: true,
       leading: IconButton(onPressed: () => Navigator.pushNamed(context,'characters'), icon: Icon(Icons.arrow_back)),
+      actions: [
+        IconButton(onPressed: () async{
+          await Share.shareXFiles([await character.toXFile()],text: 'Aquí te dejo a este personaje para que le eches un vistazo máquina',subject: 'Personaje ${character.name}');
+        }, icon: Icon(Icons.share))
+      ],
       ),
       body: _CharacterInfoView(),
     );
