@@ -38,6 +38,9 @@ class CharacterProvider with ChangeNotifier {
     Response response = await get(uri);
     final data = charactersResponseFromJson(response.body);
     characters = data.characters;
+    for (var x in characters) {
+      x.heroId = 'hero-${x.id}';
+    }
     notifyListeners();
   }
 

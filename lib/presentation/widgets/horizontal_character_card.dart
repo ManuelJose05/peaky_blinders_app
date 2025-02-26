@@ -1,34 +1,31 @@
 import 'package:flutter/material.dart';
 import 'package:peaky_blinders_app/models/charactere_model.dart';
 import 'package:peaky_blinders_app/provider/character_provider.dart';
+import 'package:provider/provider.dart';
 
 class HorizontalCharactersCard extends StatelessWidget {
   const HorizontalCharactersCard({
     super.key,
-    required this.provider,
     required this.id,
   });
 
-  final CharacterProvider provider;
   final int id;
-
   @override
   Widget build(BuildContext context) {
-    List<Character> characters = provider.characters;
+    final provider = Provider.of<CharacterProvider>(context);
     return SizedBox(
       height: 200,
       width: double.infinity,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
-        itemCount: characters.length,
+        itemCount: provider.characters.length,
         itemBuilder: (context, index) {
-          if (characters[index].id == index) index++;
           return GestureDetector(
             onTap:
-                () => Navigator.pushNamed(
+                () => Navigator.pushReplacementNamed(
                   context,
                   'characterDetail',
-                  arguments: characters[index],
+                  arguments: provider.characters[index],
                 ),
             child: SizedBox(
               width: 150,
@@ -38,14 +35,14 @@ class HorizontalCharactersCard extends StatelessWidget {
                   ClipRRect(
                     borderRadius: BorderRadius.all(Radius.circular(20)),
                     child: Image(
-                      image: NetworkImage(characters[index].imageUrl!),
+                      image: NetworkImage(provider.characters[index].imageUrl!),
                       width: 120,
                       height: 150,
                       fit: BoxFit.cover,
                     ),
                   ),
                   Text(
-                    characters[index].name,
+                    provider.characters[index].name,
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                   ),

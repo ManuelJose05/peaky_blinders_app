@@ -41,7 +41,7 @@ class SwiperWidget extends StatelessWidget {
         scale: 0.9,
         fade: 0.5,
         itemWidth: double.infinity,
-        itemHeight: 500,
+        itemHeight: 400,
         layout: SwiperLayout.DEFAULT,
         itemBuilder: (context, index) {
           return Column(
@@ -52,7 +52,7 @@ class SwiperWidget extends StatelessWidget {
                   'assets/images/${images[index]}',
                   width: double.infinity,
                   height: 400,
-                  fit: BoxFit.fill,
+                  fit: BoxFit.fitHeight,
                 ),
               ),
               QuoteWidget(index: index),

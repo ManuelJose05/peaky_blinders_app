@@ -10,10 +10,19 @@ class CharacterDetailScreens extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final Character character =
-        ModalRoute.of(context)!.settings.arguments as Character;
-    return Scaffold(
-      appBar: AppBar(title: Text('Character Info'), centerTitle: true,
+    final Character? character =
+        ModalRoute.of(context)!.settings.arguments as Character?;
+    return character == null ?
+    Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Image.asset('assets/images/coin.gif')
+        ],
+      ),
+    )
+    :
+     Scaffold(appBar: AppBar(title: Text('Character Info'), centerTitle: true,
       leading: IconButton(onPressed: () => Navigator.pushNamed(context,'characters'), icon: Icon(Icons.arrow_back)),
       actions: [
         IconButton(onPressed: () async{
@@ -21,17 +30,18 @@ class CharacterDetailScreens extends StatelessWidget {
         }, icon: Icon(Icons.share))
       ],
       ),
-      body: _CharacterInfoView(),
+      body: _CharacterInfoView(character: character,),
     );
   }
 }
 
 class _CharacterInfoView extends StatelessWidget {
+  final Character character;
+
+  _CharacterInfoView({ required this.character});
+
   @override
   Widget build(BuildContext context) {
-    final provider = Provider.of<CharacterProvider>(context);
-    final Character character =
-        ModalRoute.of(context)!.settings.arguments as Character;
     return SingleChildScrollView(
       child: Container(
         child: Column(
@@ -89,7 +99,7 @@ class _CharacterInfoView extends StatelessWidget {
             style: TextStyle(fontSize: 19,fontWeight: FontWeight.bold),
             ),
             SizedBox(height: 15,),
-            HorizontalCharactersCard(provider: provider, id: character.id)
+            HorizontalCharactersCard( id: character.id)
           ],
         ),
       ),
