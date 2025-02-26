@@ -10,8 +10,11 @@ class PreferenciasUsuario {
   PreferenciasUsuario._internal();
   SharedPreferences? _prefs;
 
-  iniPrefs() async{
+  Future iniPrefs() async{
     _prefs = await SharedPreferences.getInstance();
+    if (_prefs == null) {
+    throw Exception("Error al cargar las preferencias de usuario");
+  }
   }
 
   String get ultimaRuta{
