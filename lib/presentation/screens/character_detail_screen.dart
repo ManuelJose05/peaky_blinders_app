@@ -32,64 +32,66 @@ class _CharacterInfoView extends StatelessWidget {
     final provider = Provider.of<CharacterProvider>(context);
     final Character character =
         ModalRoute.of(context)!.settings.arguments as Character;
-    return Container(
-      child: Column(
-        children: [
-          Container(
-            decoration: BoxDecoration(
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.black54,
-                  blurRadius: 10,
-                  offset: Offset(0, 4),
-                ),
-              ],
+    return SingleChildScrollView(
+      child: Container(
+        child: Column(
+          children: [
+            Container(
+              decoration: BoxDecoration(
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black54,
+                    blurRadius: 10,
+                    offset: Offset(0, 4),
+                  ),
+                ],
+              ),
+              child: Hero(
+                tag: character.heroId!,
+                child: Image.network(character.imageUrl!, fit: BoxFit.cover)),
             ),
-            child: Hero(
-              tag: character.heroId!,
-              child: Image.network(character.imageUrl!, fit: BoxFit.cover)),
-          ),
-          SizedBox(height: 16),
-          Text(
-            character.name,
-            style: TextStyle(
-              fontSize: 24,
-              fontWeight: FontWeight.bold,
-              color: Colors.black87,
+            SizedBox(height: 16),
+            Text(
+              character.name,
+              style: TextStyle(
+                fontSize: 24,
+                fontWeight: FontWeight.bold,
+                color: Colors.black87,
+              ),
             ),
-          ),
-          SizedBox(height: 8),
-          Text(
-            character.description,
-            style: TextStyle(
-              fontSize: 16,
-              color: Colors.black54,
-              fontStyle: FontStyle.italic,
+            SizedBox(height: 8),
+            Text(
+              character.description,
+              style: TextStyle(
+                fontSize: 16,
+                color: Colors.black54,
+                fontStyle: FontStyle.italic,
+              ),
+              textAlign: TextAlign.center,
             ),
-            textAlign: TextAlign.center,
-          ),
-          SizedBox(height: 8),
-          Text(
-            'Nationality: ${character.nationality}',
-            style: TextStyle(fontSize: 14, color: Colors.black87),
-          ),
-          SizedBox(height: 4),
-          Text(
-            'Played by: ${character.actor}',
-            style: TextStyle(
-              fontSize: 14,
-              color: Colors.black87,
-              fontWeight: FontWeight.w500,
+            SizedBox(height: 8),
+            Text(
+              'Nationality: ${character.nationality}',
+              style: TextStyle(fontSize: 14, color: Colors.black87),
             ),
-          ),
-          SizedBox(height: 15,),
-          SizedBox(width: MediaQuery.of(context).size.width * 0.8,child: Divider()),
-          Text('Others Characters',
-          style: TextStyle(fontSize: 19,fontWeight: FontWeight.bold),
-          ),
-          SizedBox(height: 15,),
-          HorizontalCharactersCard(provider: provider, id: character.id)
-        ],
+            SizedBox(height: 4),
+            Text(
+              'Played by: ${character.actor}',
+              style: TextStyle(
+                fontSize: 14,
+                color: Colors.black87,
+                fontWeight: FontWeight.w500,
+              ),
+            ),
+            SizedBox(height: 15,),
+            SizedBox(width: MediaQuery.of(context).size.width * 0.8,child: Divider()),
+            Text('Others Characters',
+            style: TextStyle(fontSize: 19,fontWeight: FontWeight.bold),
+            ),
+            SizedBox(height: 15,),
+            HorizontalCharactersCard(provider: provider, id: character.id)
+          ],
+        ),
       ),
     );
   }

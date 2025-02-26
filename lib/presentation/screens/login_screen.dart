@@ -43,7 +43,7 @@ class _LoginViewState extends State<_LoginView> {
               children: [
                 Container(
                   width: MediaQuery.of(context).size.width * 0.7,
-                  height: MediaQuery.of(context).size.height * 0.35,
+                  height: MediaQuery.of(context).size.height * 0.4,
                   decoration: BoxDecoration(
                     color: Colors.black54,
                     borderRadius: BorderRadius.circular(15),

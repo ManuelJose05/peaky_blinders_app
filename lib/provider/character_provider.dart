@@ -8,7 +8,7 @@ import 'package:share_plus/share_plus.dart';
 class CharacterProvider with ChangeNotifier {  
   final prefs = PreferenciasUsuario();
   int indexQuotes = 0;
-  final String _url = 'http://10.0.2.2:8080';
+  final String _url = 'http://172.20.10.5:8080';
   
   final List<String> quotes = [
     "By order of the Peaky Blinders",

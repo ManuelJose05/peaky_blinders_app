@@ -7,7 +7,7 @@ import 'package:url_launcher/url_launcher.dart';
 
 class EpisodesProvider with ChangeNotifier {
   final prefs = PreferenciasUsuario();
-  final String _url = 'http://10.0.2.2:8080';
+  final String _url = 'http://172.20.10.5:8080';
   bool expansionChange = false;
   List<Episode> episodes = [];
   List<Episode> aux = [];

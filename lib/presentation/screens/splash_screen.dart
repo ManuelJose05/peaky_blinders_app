@@ -61,6 +61,7 @@ class _SplashView extends StatelessWidget {
                 duration: Duration(seconds: 3),
                 child: Text(
                   "By Order of the Peaky Blinders",
+                  textAlign: TextAlign.center,
                   style: TextStyle(
                     color: Colors.grey[100],
                     overflow: TextOverflow.clip,
