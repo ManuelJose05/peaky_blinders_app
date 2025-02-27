@@ -6,7 +6,7 @@ import 'package:peaky_blinders_app/models/user_model.dart';
 import 'package:peaky_blinders_app/models/users_response_model.dart';
 
 class UserProvider with ChangeNotifier {
-  final String _url = 'https://peakyapi.onrender.com';
+  final String _url = 'http://172.20.10.5:8080';
 
   Future<User> login(String emailUser, String passwordUser) async {
     Uri uri = Uri.parse('$_url/api/login');
