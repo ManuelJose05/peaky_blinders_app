@@ -15,11 +15,11 @@ class EpisodesProvider with ChangeNotifier {
 
   Map<int, String> peakyBlindersTrailers = {
     1: "https://www.youtube.com/watch?v=oVzVdvGIC7U",
-    2: "https://www.youtube.com/watch?v=EMfOiyFVXKs",
-    3: "https://www.youtube.com/watch?v=cck2gX6SKaQ",
-    4: "https://www.youtube.com/watch?v=9iI1b3RZLxQ",
-    5: "https://www.youtube.com/watch?v=oVzVdvGIC7U",
-    6: "https://www.youtube.com/watch?v=2nsT9uQPIrk",
+    2: "https://www.youtube.com/watch?v=uIJ07Wg5i0k",
+    3: "https://www.youtube.com/watch?v=t5D4-nTAWLY",
+    4: "https://www.youtube.com/watch?v=whgdkjDJAjg",
+    5: "https://www.youtube.com/watch?v=Ruyl8_PT_y8",
+    6: "https://www.youtube.com/watch?v=PxZ5gGfPtCQ",
   };
 
   EpisodesProvider() {
